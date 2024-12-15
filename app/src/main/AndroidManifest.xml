@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
         <activity
-            android:name=".UserListActivity"
+            android:name=".CrearUsuario"
             android:exported="false" />
-        <!-- Declaración de la actividad de inicio de sesión -->
+        <activity
+            android:name=".MenuPrincipal"
+            android:exported="false" />
+        <activity
+            android:name=".SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".UserListActivity"
+            android:exported="false" /> <!-- Declaración de la actividad de inicio de sesión -->
         <activity
             android:name=".LoginActivity"
             android:exported="true"> <!-- Cambia esto a true o false según lo que necesites -->
@@ -27,6 +35,12 @@
         <activity android:name=".MonitoringActivity" />
         <activity android:name=".AnalysisResultsActivity" />
         <activity android:name=".SplashActivity" />
+
+        <activity
+            android:name=".RestaurarContrasena"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

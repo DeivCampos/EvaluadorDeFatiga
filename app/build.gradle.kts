@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,6 +69,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth.ktx)
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.database.ktx)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -78,4 +83,7 @@ dependencies {
 
     // Asegúrate de agregar la biblioteca de splash screen si no la tienes
     implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.android.material:material:1.10.0")
+
 }

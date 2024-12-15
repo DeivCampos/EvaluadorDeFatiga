@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/nombre" />
+    android:layout_margin="30dp"
+    >
 
 
-    <EditText
-        android:id="@+id/et_age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/edad" />
-
-    <EditText
-        android:id="@+id/et_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese su peso (kg)"
-        android:inputType="numberDecimal"
-         />
-
-    <EditText
-        android:id="@+id/et_height"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese su estatura (cm)"
-        android:inputType="number"
-        android:layout_marginBottom="16dp" />
-
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/guardar" />
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:src="@drawable/logofit"
         android:contentDescription="@string/app_name"
-        android:layout_marginBottom="10dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/NombreUsuario"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
 
 
-</LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/bottomnav"
+        app:menu="@menu/bottomnav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

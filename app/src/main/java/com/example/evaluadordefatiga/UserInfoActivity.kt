@@ -4,56 +4,66 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.evaluadordefatiga.Models.Usuario
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 
 class UserInfoActivity : AppCompatActivity() {
 
-    // Usar un objeto global para almacenar usuarios, aquí usamos un Companion object
-    companion object {
-        val usuarios = mutableListOf<Usuario>() // Lista para almacenar los usuarios
-    }
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info)
 
-        val nameEditText = findViewById<EditText>(R.id.et_name)
-        val ageEditText = findViewById<EditText>(R.id.et_age)
-        val weightEditText = findViewById<EditText>(R.id.et_weight)
-        val heightEditText = findViewById<EditText>(R.id.et_height)
-        val saveButton = findViewById<Button>(R.id.btn_save)
+        auth = Firebase.auth
+        val nombreUsuario = findViewById<TextView>(R.id.NombreUsuario)
 
-        saveButton.setOnClickListener {
-            try {
-                // Obtener y validar los datos ingresados
-                val userName = nameEditText.text.toString()
-                val userAge = ageEditText.text.toString().toIntOrNull()
-                val userWeight = weightEditText.text.toString().toDoubleOrNull()
-                val userHeight = heightEditText.text.toString().toDoubleOrNull()
-
-                // Validación para asegurar que los datos sean correctos
-                if (userName.isEmpty() || userAge == null || userWeight == null || userHeight == null) {
-                    throw IllegalArgumentException("Todos los campos deben estar completos y ser válidos.")
+        val database = FirebaseDatabase.getInstance().getReference("Usuario")
+        database.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    val nombre = data.child("nombre").getValue(String::class.java)
+                    val correo = data.child("correo").getValue(String::class.java)
+                    if (correo == auth.currentUser?.email) {
+                        nombreUsuario.text = nombre
+                    }
                 }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@UserInfoActivity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            }})
 
-                // Crear un nuevo usuario y agregarlo a la lista
-                val nuevoUsuario = Usuario(userName, userAge, userWeight, userHeight)
-                usuarios.add(nuevoUsuario) // Almacenar el nuevo usuario en el objeto global
-
-                // Mostrar mensaje de éxito
-                Toast.makeText(this, "Usuario guardado correctamente.", Toast.LENGTH_SHORT).show()
-
-                // Ir a la pantalla de inicio de entrenamiento
-                val intent = Intent(this, TrainingStartActivity::class.java)
-                startActivity(intent)
-
-            } catch (e: IllegalArgumentException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                Toast.makeText(this, "Ocurrió un error inesperado. Intente nuevamente.", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
+        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomnav)
+        bottomnav.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.item_1 -> {
+                    finish()
+                    val intent = Intent(this, MenuPrincipal::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.item_2 -> {
+                    finish()
+                    val intent = Intent(this, UserInfoActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
             }
         }
     }
+
+
+
 }

@@ -5,4 +5,6 @@
     <string name="peso">Peso</string>
     <string name="estatura">Estatura</string>
     <string name="guardar">Guardar</string>
+    <string name="nombre_label">Nombre: %1$s</string>
+
 </resources>

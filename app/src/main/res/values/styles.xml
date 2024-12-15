@@ -1,14 +1,5 @@
 <resources>
     <!-- Estilo principal de la aplicación -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!-- El tema debe ser Theme.MaterialComponents -->
 
-    <!-- Estilo de la pantalla de lanzamiento -->
-    <style name="Theme.SplashScreen" parent="Theme.SplashScreen">
-            <item name="windowSplashScreenBackground">@color/your_splash_background_color</item>
-        <item name="postSplashScreenTheme">@style/AppTheme</item>
-    </style>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AnalysisResultsActivity : AppCompatActivity() {
 
@@ -14,25 +15,30 @@ class AnalysisResultsActivity : AppCompatActivity() {
 
         val resultsTextView = findViewById<TextView>(R.id.textViewResults)
 
-        // Obtener la lista de usuarios desde el UserInfoActivity
-        val usuarios = UserInfoActivity.usuarios // Obtener la lista de usuarios global
-
-        // Mostrar los resultados
-        if (usuarios.isNotEmpty()) {
-            val results = StringBuilder()
-            for (usuario in usuarios) {
-                results.append("Nombre: ${usuario.nombre}, Edad: ${usuario.edad}, Peso: ${usuario.peso}, Altura: ${usuario.altura}\n")
-            }
-            resultsTextView.text = results.toString()
-        } else {
-            resultsTextView.text = "No hay usuarios registrados."
-        }
 
         // Manejar el clic del botón "Ver Usuarios"
         val buttonViewUsers = findViewById<Button>(R.id.buttonViewUsers)
         buttonViewUsers.setOnClickListener {
             val intent = Intent(this, UserListActivity::class.java)
             startActivity(intent) // No es necesario pasar usuarios aquí, ya que lo tenemos en el UserInfoActivity
+        }
+        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomnav)
+        bottomnav.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.item_1 -> {
+                    finish()
+                    val intent = Intent(this, MenuPrincipal::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.item_2 -> {
+                    finish()
+                    val intent = Intent(this, UserInfoActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
     }
 }

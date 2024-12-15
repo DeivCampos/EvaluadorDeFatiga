@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.evaluadordefatiga.Models.Usuario
 
 class UserAdapter(private val userList: List<Usuario>) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
